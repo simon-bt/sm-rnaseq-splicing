@@ -1,0 +1,38 @@
+# DO NOT MODIFY - Path to tab-del file describing samples
+samples_path: config/samples.tsv
+
+# Specify the type of reads
+paired_end: True
+
+# Specify parameters used in the workflow of alternative splicing analysis with vast-tools
+species: 'hg38'  # Check https://github.com/vastgroup/vast-tools for other species and database versions
+combine_opts: ""  # For additional combine module arguments, run vast-tools combine --help
+min_dpsi: 15  # Minimum delta PSI of the averages
+min_range: 5  # Minimum distance between the ranges of both groups
+paired: False  # Run paired comparison (A1 vs B1, A2 vs B2, etc.)
+groupA: 'Control'  # Control condition
+groupB: 'Contrast'  # Contrast condition
+prot_impact: "https://vastdb.crg.eu/downloads/hg38/PROT_IMPACT-hg38-v3.tab.gz"  # Protein impact for a VastDB species
+event_mapping: "https://vastdb.crg.eu/downloads/hg38/EVENTID_to_GENEID-hg38.tab.gz"  # Event-to-Ensembl ID mapping
+event_info: "https://vastdb.crg.eu/downloads/hg38/EVENT_INFO-hg38.tab.gz"  # Full coordinates for events
+
+# Specify parameters for downstream data analysis and visualisation
+color_groupA: 'lightblue'  # Color for Control condition
+color_groupB: 'cornflowerblue'  # Color for Contrast condition
+color_reg: 'teal'  # Color for differentially regulated splicing events
+color_unreg: 'darkgray'  # Color for non-regulated splicing events
+
+# Specify parameters for BAM files generation
+genome:  # URL to genome FASTA
+  "http://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_38/GRCh38.primary_assembly.genome.fa.gz"
+annotation:  # URL to GTF file
+  "http://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_38/gencode.v38.primary_assembly.annotation.gtf.gz"
+read_length: 0  # Read length - 1
+
+# Specify parameters for sashimi plots
+lower_limit: 150  # Nucleotide shift for downstream coordinate
+upper_limit: 150  # Nucleotide shift for upstream coordinate
+sashimi_control: 'darkgrey'  # Color for Control condition, must be a valid R color
+sashimi_contrast: 'tomato3'  # Color for Contrast condition, must be a valid R color
+sashimi_agg_func : 'mean_j'  #  Aggregate function for overlay. Check https://github.com/guigolab/ggsashimi for other options
+sashimi_min_cov: 10  # Minimum number of reads supporting a junction to be drawn

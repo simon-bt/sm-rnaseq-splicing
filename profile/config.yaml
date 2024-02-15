@@ -1,0 +1,49 @@
+---
+snakefile: Snakefile
+
+# Cluster submission
+jobs: 10
+cores: 25
+latency-wait: 60
+keep-going: True
+use-envmodules: True
+
+# Conda
+use-conda: True
+
+# Singularity
+use-singularity: True
+singularity-args: "--bind /path/to/sm-rnaseq-splicing/"
+
+# Define rule-specific resources
+set-resources:
+  - fetch_singularity:runtime=60
+  - fetch_singularity:mem_mb_per_cpu=1000
+  - fetch_singularity:cpus_per_task=1
+  - download_files:runtime=360
+  - download_files:mem_mb_per_cpu=10000
+  - download_files:cpus_per_task=2
+  - vast_align:runtime=1440
+  - vast_align:mem_mb_per_cpu=10000
+  - vast_align:cpus_per_task=6
+  - vast_combine:runtime=720
+  - vast_combine:mem_mb_per_cpu=5000
+  - vast_combine:cpus_per_task=5
+  - vast_compare:runtime=30
+  - vast_compare:mem_mb_per_cpu=1000
+  - vast_compare:cpus_per_task=1
+  - process_data:runtime=60
+  - process_data:mem_mb_per_cpu=5000
+  - process_data:cpus_per_task=5
+  - star_index:runtime=180
+  - star_index:mem_mb_per_cpu=10000
+  - star_index:cpus_per_task=5
+  - star_bams:runtime=720
+  - star_bams:mem_mb_per_cpu=10000
+  - star_bams:cpus_per_task=5
+  - prepare_sashimis:runtime=60
+  - prepare_sashimis:mem_mb_per_cpu=5000
+  - prepare_sashimis:cpus_per_task=2
+  - plot_sashimis:runtime=720
+  - plot_sashimis:mem_mb_per_cpu=10000
+  - plot_sashimis:cpus_per_task=2
